@@ -16,11 +16,13 @@
         <service
             android:name=".AutoUpdateService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true">
+
+        </service>
 
         <activity
             android:name=".WeatherActivity"
-            android:exported="false" />
+            />
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -2,7 +2,9 @@ package com.example.coolweather;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,6 +89,15 @@ public class ChooseAreaFragment extends Fragment {
                     if(getActivity() instanceof WeatherActivity){   // 判断碎片的位置
                         //该碎片在WeatherActivity中，只需要刷新该活动
                         WeatherActivity activity = (WeatherActivity)getActivity();
+
+                        //修复bug
+//                        SharedPreferences.Editor editor =
+//                                PreferenceManager.getDefaultSharedPreferences(WeatherActivity.this).edit();
+//                        SharedPreferences.Editor editor =PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
+//                        editor.putString("weather_id", weatherId);
+//                        editor.apply();
+
+
                         activity.drawerLayout.closeDrawers();
                         activity.swipeRefreshLayout.setRefreshing(true);
                         activity.requestWeather(weatherId);

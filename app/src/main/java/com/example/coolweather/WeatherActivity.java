@@ -51,7 +51,7 @@ public class WeatherActivity extends AppCompatActivity {
     public SwipeRefreshLayout swipeRefreshLayout;
     public DrawerLayout drawerLayout;
     private Button navButton;
-
+    private String weatherId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +93,6 @@ public class WeatherActivity extends AppCompatActivity {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String weatherString = prefs.getString("weather",null);
-        final String weatherId;
         if(weatherString != null){
             //有缓存时直接解析天气数据
             Weather weather = Utility.handleWeatherResponse(weatherString);
@@ -102,12 +101,16 @@ public class WeatherActivity extends AppCompatActivity {
         }else{
             //无缓存时去服务器查询数据
             weatherId = getIntent().getStringExtra("weather_id");
-            weatherLayout.setVisibility(View.INVISIBLE);    // 暂时将ScrollView设为不可见
+            weatherLayout.setVisibility(View.INVISIBLE);    // 请求数据时先将ScrollView隐藏，否则空界面看上去会比较奇怪
             requestWeather(weatherId);
         }
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {   // 设置下拉刷新监听器
+                // 修复bug
+//                SharedPreferences prefs = PreferenceManager
+//                        .getDefaultSharedPreferences(WeatherActivity.this);
+//                String temp = prefs.getString("weather_id", weatherId);
                 requestWeather(weatherId);
             }
         });
@@ -127,6 +130,7 @@ public class WeatherActivity extends AppCompatActivity {
     public void requestWeather(final String weatherId){
         String weatherUrl = "http://guolin.tech/api/weather?cityid=" + weatherId
                 + "&key=8e7ec84410bd4be8b5f6130a319103d0"; // 这里的key设置为第一个实训中获取到的API Key
+//        this.weatherId = weatherId;
         // 组装地址并发出请求
         HttpUtil.sendOkHttpRequest(weatherUrl, new Callback() {
             @Override
