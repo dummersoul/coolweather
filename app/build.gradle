@@ -11,8 +11,8 @@ android {
         applicationId "com.example.coolweather"
         minSdk 21
         targetSdk 30
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -32,8 +32,19 @@ android {
     }
 
     buildTypes {
-        release {
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            // VersionName后缀
+            versionNameSuffix "-debug"
             minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+        }
+        release {
+//            buildConfigField "boolean", "LOG_DEBUG", "false"   // 不显示log
+            minifyEnabled true     // 开启混淆
+//            zipAlignEnabled true   // Zipalign优化
+//            shrinkResources true   // 移除无用的resource
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }

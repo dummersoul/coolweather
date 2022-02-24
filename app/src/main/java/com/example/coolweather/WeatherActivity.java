@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.coolweather.gson.Forecast;
 import com.example.coolweather.gson.Weather;
+import com.example.coolweather.service.AutoUpdateService;
 import com.example.coolweather.util.HttpUtil;
 import com.example.coolweather.util.Utility;
 
@@ -100,7 +101,7 @@ public class WeatherActivity extends AppCompatActivity {
             showWeatherInfo(weather);
         }else{
             //无缓存时去服务器查询数据
-            weatherId = getIntent().getStringExtra("weather_id");
+            String weatherId = getIntent().getStringExtra("weather_id");
             weatherLayout.setVisibility(View.INVISIBLE);    // 请求数据时先将ScrollView隐藏，否则空界面看上去会比较奇怪
             requestWeather(weatherId);
         }
