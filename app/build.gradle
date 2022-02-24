@@ -19,10 +19,15 @@ android {
 
     signingConfigs {
         config {
-            storeFile file('C:/Users/zy/Desktop/appsign.jks')
-            storePassword 'android'
-            keyAlias 'key0'
-            keyPassword 'android'
+//            storeFile file('C:/Users/zy/Desktop/appsign.jks')
+//            storePassword 'android'
+//            keyAlias 'key0'
+//            keyPassword 'android'
+
+            storeFile file(KEY_PATH)
+            storePassword KEY_PASS
+            keyAlias ALIAS_NAME
+            keyPassword ALIAS_PASS
         }
     }
 
